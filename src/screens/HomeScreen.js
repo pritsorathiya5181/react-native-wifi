@@ -21,7 +21,8 @@ import {
     View
 } from 'react-native';
 
-
+import LinearGradient from 'react-native-linear-gradient';
+import Modal from 'react-native-modal';
 import React from 'react';
 import wifi from 'react-native-android-wifi';
 
