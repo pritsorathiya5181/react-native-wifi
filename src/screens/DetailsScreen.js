@@ -34,8 +34,7 @@ const DetailsScreen = () => {
 
     toggleModal = () => {
         console.log(isModalVisible);
-        // this.setState({ isModalVisible: !this.state.isModalVisible });
-        setisModalVisible({ isModalVisible: !isModalVisible });
+        setisModalVisible(!isModalVisible);
         // console.log(this.state.ssid, this.state.password);
         // wifi.connectToHiddenNetwork(this.state.ssid, this.state.password, (networkAdded) => {
         //     // console.log(networkAdded);
@@ -82,7 +81,7 @@ const DetailsScreen = () => {
                 </LinearGradient>
             </TouchableOpacity>
 
-            {isModalVisible ? <Modal>
+            <Modal isVisible={isModalVisible}>
                 <View style={{ backgroundColor: "#DCDCDC", justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
 
                     <View style={{ marginVertical: 15, alignItems: "center" }}>
@@ -135,8 +134,7 @@ const DetailsScreen = () => {
 
 
                 </View>
-            </Modal> : null
-            }
+            </Modal>
         </>
     );
 }
