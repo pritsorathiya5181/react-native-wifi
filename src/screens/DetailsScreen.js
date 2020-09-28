@@ -15,6 +15,8 @@ class DetailsScreen extends React.Component {
 
         this.state = {
             isModalVisible: false,
+            ssid: '',
+            password: '',
         }
 
     }
