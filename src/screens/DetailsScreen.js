@@ -6,20 +6,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
 
 
-const webviewRef = React.useRef(null);
+state = {
+    isModalVisible: false,
+    ssid: '',
+    password: '',
+}
 
-class DetailsScreen extends React.Component {
+const DetailsScreen =()=> {
 
-    constructor(props) {
-        super(props)
 
-        this.state = {
-            isModalVisible: false,
-            ssid: '',
-            password: '',
-        }
-
-    }
+    const webviewRef = React.useRef(null);
 
 
     // function webViewgoback() {
@@ -54,7 +50,6 @@ class DetailsScreen extends React.Component {
         })
     };
 
-    render() {
         return (
             <>
                 <SafeAreaView style={styles.flexContainer}>
@@ -149,7 +144,6 @@ class DetailsScreen extends React.Component {
             </>
         );
     }
-}
 
 export default DetailsScreen;
 
