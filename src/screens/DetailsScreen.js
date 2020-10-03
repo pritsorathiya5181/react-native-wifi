@@ -50,7 +50,7 @@ const DetailsScreen = () => {
         <>
             <SafeAreaView style={styles.flexContainer}>
                 <WebView
-                    source={{ uri: "http://192.168.0.1/" }}
+                    source={{ uri: "http://192.168.4.1/" }}
                     renderLoading={this.LoadingIndicatorView}
                     startInLoadingState={true}
                     ref={webviewRef}
