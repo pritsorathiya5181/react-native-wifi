@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import {
   SafeAreaView,
   ScrollView,
@@ -20,14 +12,16 @@ import HomeScreen from './src/screens/HomeScreen';
 import MainScreen from './src/screens/MainScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import SplashScreen from './src/screens/SplashScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Navigator initialRouteName={"Splash"}>
+        <Stack.Screen name="Splash" component={SplashScreen} options={{ header: () => null }} />
+        <Stack.Screen name="Main" component={MainScreen} options={{ header: () => null }} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>

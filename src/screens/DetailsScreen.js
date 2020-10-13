@@ -1,5 +1,5 @@
 import { ActivityIndicator, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
@@ -11,7 +11,6 @@ const DetailsScreen = () => {
     const [password, setPassword] = useState('');
 
     const webviewRef = React.useRef(null);
-
 
     // function webViewgoback() {
     //     if (webviewRef.current) webviewRef.current.goBack();
@@ -31,30 +30,35 @@ const DetailsScreen = () => {
             />
         );
     }
-
     toggleModal = () => {
         console.log(isModalVisible);
         setisModalVisible(!isModalVisible);
-        // console.log(this.state.ssid, this.state.password);
-        // wifi.connectToHiddenNetwork(this.state.ssid, this.state.password, (networkAdded) => {
-        //     // console.log(networkAdded);
-        //     if (networkAdded) {
-        //         console.log("Connected successfully!");
-        //     } else {
-        //         console.log("Connection failed!");
-        //     }
-        // })
+        console.log(ssid, password);
+        console.log(runFirst);
     };
+    // document.querySelector('[name="searchTxt"]').value
+    const runFirst = `
+      document.querySelector("#ssid").value = '${ssid}';
+      document.querySelector("#pass").value = '${password}';
+      true; // note: this is required, or you'll sometimes get silent failures
+    `;
 
     return (
-        <>
+        <React.Fragment>
             <SafeAreaView style={styles.flexContainer}>
-                <WebView
-                    source={{ uri: "http://192.168.4.1/" }}
+                {ssid === '' || password === '' ? <WebView
+                    source={{ uri: "http://192.168.0.1/" }}
                     renderLoading={this.LoadingIndicatorView}
-                    startInLoadingState={true}
-                    ref={webviewRef}
-                />
+                    startInLoadingState={false}
+                /> :
+                    <WebView
+                        source={{ uri: "http://192.168.4.1/" }}
+                        renderLoading={this.LoadingIndicatorView}
+                        startInLoadingState={true}
+                        ref={webviewRef}
+                        injectedJavaScript={runFirst}
+                    // javaScriptEnabledAndroid={true}
+                    />}
                 <View style={styles.tabBarContainer}>
                     {/* <TouchableOpacity onPress={webViewgoback}>
                                 <Text style={{ color: "green" }}>Back</Text>
@@ -94,7 +98,7 @@ const DetailsScreen = () => {
                             placeholder="SSID"
                             keyboardType='default'
                             underlineColorAndroid='transparent'
-                            onChangeText={(ssid) => setssid({ ssid })}
+                            onChangeText={(s) => setssid(s)}
                         />
                     </View>
 
@@ -104,7 +108,7 @@ const DetailsScreen = () => {
                             placeholder="Password"
                             secureTextEntry={true}
                             underlineColorAndroid='transparent'
-                            onChangeText={(password) => setPassword({ password })} />
+                            onChangeText={(pass) => setPassword(pass)} />
                     </View>
 
                     <TouchableOpacity onPress={this.toggleModal}
@@ -127,7 +131,7 @@ const DetailsScreen = () => {
                                 color: '#ffffff',
                                 backgroundColor: 'transparent',
                             }}>
-                                Close
+                                Connect
                   </Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -135,7 +139,7 @@ const DetailsScreen = () => {
 
                 </View>
             </Modal>
-        </>
+        </ React.Fragment>
     );
 }
 

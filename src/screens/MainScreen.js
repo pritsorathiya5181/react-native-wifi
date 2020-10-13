@@ -6,7 +6,7 @@ import React from 'react';
 
 const MainScreen = ({ navigation }) => {
     return (
-        <View>
+        <View style={styles.container}>
             {/* <Button
                 title="Go to Home screen"
                 onPress={() => navigation.navigate("Home")}
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+        paddingVertical: 50
     },
     linearGradient: {
         paddingLeft: 15,
