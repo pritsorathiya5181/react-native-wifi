@@ -17,11 +17,11 @@ const DetailsScreen = () => {
     //     console.log(webviewRef.current);
     // }
 
-    webViewNext = () => {
+    const webViewNext = () => {
         if (webviewRef.current) webviewRef.current.goForward();
     }
 
-    LoadingIndicatorView = () => {
+    const LoadingIndicatorView = () => {
         return (
             <ActivityIndicator
                 color="#009b88"
@@ -30,113 +30,96 @@ const DetailsScreen = () => {
             />
         );
     }
-    toggleModal = () => {
+    let runFirst;
+    const toggleModal = () => {
         console.log(isModalVisible);
         setisModalVisible(!isModalVisible);
-        console.log(ssid, password);
-        console.log(runFirst);
+        // console.log(ssid, password);
+        // console.log(runFirst);
     };
-    // document.querySelector('[name="searchTxt"]').value
-    const runFirst = `
-      document.querySelector("#ssid").value = '${ssid}';
-      document.querySelector("#pass").value = '${password}';
-      true; // note: this is required, or you'll sometimes get silent failures
-    `;
-
     return (
         <React.Fragment>
-            <SafeAreaView style={styles.flexContainer}>
-                {ssid === '' || password === '' ? <WebView
-                    source={{ uri: "http://192.168.0.1/" }}
-                    renderLoading={this.LoadingIndicatorView}
-                    startInLoadingState={false}
-                /> :
-                    <WebView
-                        source={{ uri: "http://192.168.4.1/" }}
-                        renderLoading={this.LoadingIndicatorView}
-                        startInLoadingState={true}
-                        ref={webviewRef}
-                        injectedJavaScript={runFirst}
-                    // javaScriptEnabledAndroid={true}
-                    />}
-                <View style={styles.tabBarContainer}>
-                    {/* <TouchableOpacity onPress={webViewgoback}>
-                                <Text style={{ color: "green" }}>Back</Text>
-                            </TouchableOpacity> */}
-                    <TouchableOpacity onPress={() => navigation.navigate("Main")}>
-                        <Text style={{ color: "green" }}>Exit</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={this.webViewNext}>
-                        <Text style={{ color: "green" }}>Next</Text>
-                    </TouchableOpacity>
-                </View>
-            </SafeAreaView>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
 
-            <TouchableOpacity onPress={this.toggleModal}
-                style={{ position: "absolute", bottom: 50, right: 30 }}>
-                <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    colors={['#4c669f', '#3b5998', '#192f6a']}
-                    style={styles.linearGradient}>
-                    <Text style={styles.buttonText}>
-                        +
-                  </Text>
-                </LinearGradient>
-            </TouchableOpacity>
+                <View style={{ marginVertical: 15, alignItems: "center" }}>
+                    <Text style={{ fontSize: 20 }}>Enter Wifi Details:</Text>
+                </View>
+
+                <View style={styles.inputContainer}>
+                    <Image style={styles.inputIcon}
+                        source={{ uri: 'https://png.icons8.com/message/ultraviolet/50/3498db' }} />
+                    <TextInput style={styles.inputs}
+                        placeholder="SSID"
+                        keyboardType='default'
+                        underlineColorAndroid='transparent'
+                        onChangeText={(s) => setssid(s)}
+                    />
+                </View>
+
+                <View style={styles.inputContainer}>
+                    <Image style={styles.inputIcon}
+                        source={{ uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db' }} />
+                    <TextInput style={styles.inputs}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        underlineColorAndroid='transparent'
+                        onChangeText={(pass) => setPassword(pass)} />
+                </View>
+
+                <TouchableOpacity onPress={toggleModal}
+                    style={{ width: "100%", alignItems: "center", marginVertical: 15 }}>
+                    <LinearGradient
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        colors={['#4c669f', '#3b5998', '#192f6a']}
+                        style={{
+                            paddingLeft: 15,
+                            paddingRight: 15,
+                            paddingVertical: 10,
+                            borderRadius: 50,
+                            width: "50%",
+                        }}>
+                        <Text style={{
+                            fontSize: 20,
+                            fontFamily: 'Gill Sans',
+                            textAlign: 'center',
+                            color: '#ffffff',
+                            backgroundColor: 'transparent',
+                        }}>
+                            Connect</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
+
+
 
             <Modal isVisible={isModalVisible}>
-                <View style={{ backgroundColor: "#DCDCDC", justifyContent: 'center', alignItems: 'center', borderRadius: 20 }}>
-
-                    <View style={{ marginVertical: 15, alignItems: "center" }}>
-                        <Text style={{ fontSize: 20 }}>Enter Wifi Details:</Text>
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <Image style={styles.inputIcon} source={{ uri: 'https://png.icons8.com/message/ultraviolet/50/3498db' }} />
-                        <TextInput style={styles.inputs}
-                            placeholder="SSID"
-                            keyboardType='default'
-                            underlineColorAndroid='transparent'
-                            onChangeText={(s) => setssid(s)}
-                        />
-                    </View>
-
-                    <View style={styles.inputContainer}>
-                        <Image style={styles.inputIcon} source={{ uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db' }} />
-                        <TextInput style={styles.inputs}
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            underlineColorAndroid='transparent'
-                            onChangeText={(pass) => setPassword(pass)} />
-                    </View>
-
-                    <TouchableOpacity onPress={this.toggleModal}
-                        style={{ width: "100%", alignItems: "center", marginVertical: 15 }}>
+                <View style={styles.webView}>
+                    <WebView
+                        source={{ uri: "http://192.168.4.1/" }}
+                        renderLoading={LoadingIndicatorView}
+                        startInLoadingState={true}
+                        ref={webviewRef}
+                        injectedJavaScript={`
+                        document.querySelector("#ssid").value = '${ssid}';
+                        document.querySelector("#pass").value = '${password}';
+                        document.querySelector('[name="connect"]').click();
+                        true; // note: this is required, or you'll sometimes get silent failures
+                      `}
+                    // javaScriptEnabledAndroid={true}
+                    />
+                    <Text>Hello</Text>
+                    <TouchableOpacity onPress={toggleModal}
+                        style={{ position: "absolute", bottom: 50, right: 30 }}>
                         <LinearGradient
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             colors={['#4c669f', '#3b5998', '#192f6a']}
-                            style={{
-                                paddingLeft: 15,
-                                paddingRight: 15,
-                                paddingVertical: 10,
-                                borderRadius: 50,
-                                width: "50%",
-                            }}>
-                            <Text style={{
-                                fontSize: 20,
-                                fontFamily: 'Gill Sans',
-                                textAlign: 'center',
-                                color: '#ffffff',
-                                backgroundColor: 'transparent',
-                            }}>
-                                Connect
-                  </Text>
+                            style={styles.linearGradient}>
+                            <Text style={styles.buttonText}>
+                                x</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-
-
                 </View>
             </Modal>
         </ React.Fragment>
@@ -184,15 +167,15 @@ const styles = StyleSheet.create({
         letterSpacing: 1.5,
     },
     linearGradient: {
-        paddingLeft: 15,
-        paddingRight: 15,
-        borderRadius: 30,
-        width: 60,
-        height: 60,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 20,
+        width: 40,
+        height: 40,
     },
     buttonText: {
-        marginTop: 10,
-        fontSize: 30,
+        // marginTop: 10,
+        fontSize: 20,
         fontFamily: 'Gill Sans',
         textAlign: 'center',
         color: '#ffffff',
@@ -235,5 +218,9 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: 'white',
+    },
+    webView: {
+        height: "80%",
+        backgroundColor: "#fff"
     }
 });
