@@ -103,12 +103,11 @@ const DetailsScreen = () => {
                         injectedJavaScript={`
                         document.querySelector("#ssid").value = '${ssid}';
                         document.querySelector("#pass").value = '${password}';
-                        document.querySelector('[name="connect"]').click();
+                        document.querySelector("#connect").click();
                         true; // note: this is required, or you'll sometimes get silent failures
                       `}
                     // javaScriptEnabledAndroid={true}
                     />
-                    <Text>Hello</Text>
                     <TouchableOpacity onPress={toggleModal}
                         style={{ position: "absolute", bottom: 50, right: 30 }}>
                         <LinearGradient
