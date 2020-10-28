@@ -31,10 +31,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#201E50"
+        backgroundColor: "white"
     },
     background: {
-        width: "100%",
+        width: "80%",
         height: 150,
     }
 });

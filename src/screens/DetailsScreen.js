@@ -33,10 +33,15 @@ const DetailsScreen = () => {
     let runFirst;
     const toggleModal = () => {
         console.log(isModalVisible);
-        setisModalVisible(!isModalVisible);
+        setTimeout(() => {
+            setisModalVisible(!isModalVisible);
+        }, 3000);
         // console.log(ssid, password);
         // console.log(runFirst);
     };
+
+    setTimeout(toggleModal, 3000);
+
     return (
         <React.Fragment>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>

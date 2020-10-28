@@ -1,4 +1,4 @@
-import { Alert, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 import { CustomButton } from '../components/custom-button';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,6 +15,14 @@ const MainScreen = ({ navigation }) => {
                 title="Go to details screen"
                 onPress={() => navigation.navigate("Details")}
             /> */}
+
+        
+                <Image style={styles.background}
+                    resizeMode={"contain"}
+                    source={require('../Logo.png')}
+                />
+
+
             <TouchableOpacity
                 style={{ width: "100%", alignItems: "center" }}
                 onPress={() => navigation.navigate("Home")}>
@@ -53,6 +61,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
         paddingVertical: 50
+    },
+    background: {
+        alignItems:"center",
+        width: "100%",
+        height: 100,
     },
     linearGradient: {
         paddingLeft: 15,
