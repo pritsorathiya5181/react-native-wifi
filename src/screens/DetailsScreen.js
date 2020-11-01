@@ -33,75 +33,81 @@ const DetailsScreen = () => {
     let runFirst;
     const toggleModal = () => {
         console.log(isModalVisible);
+        setisModalVisible(!isModalVisible);
+        console.log(isModalVisible);
         setTimeout(() => {
-            setisModalVisible(!isModalVisible);
+            setisModalVisible(false);
         }, 3000);
         // console.log(ssid, password);
         // console.log(runFirst);
     };
 
-    setTimeout(toggleModal, 3000);
+    // setTimeout(toggleModal, 3000);
 
     return (
         <React.Fragment>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{}}>
 
-                <View style={{ marginVertical: 15, alignItems: "center" }}>
-                    <Text style={{ fontSize: 20 }}>Enter Wifi Details:</Text>
+                <View>
+                    <Text style={{ fontSize: 25, textTransform: "uppercase" }}>Instructions:</Text>
                 </View>
 
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon}
-                        source={{ uri: 'https://png.icons8.com/message/ultraviolet/50/3498db' }} />
-                    <TextInput style={styles.inputs}
-                        placeholder="SSID"
-                        keyboardType='default'
-                        underlineColorAndroid='transparent'
-                        onChangeText={(s) => setssid(s)}
-                    />
-                </View>
+                <View style={{ width: "100%", justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ marginVertical: 15, alignItems: "center" }}>
+                        <Text style={{ fontSize: 20 }}>Enter Wifi Details:</Text>
+                    </View>
 
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon}
-                        source={{ uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db' }} />
-                    <TextInput style={styles.inputs}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                        underlineColorAndroid='transparent'
-                        onChangeText={(pass) => setPassword(pass)} />
-                </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon}
+                            source={{ uri: 'https://png.icons8.com/message/ultraviolet/50/3498db' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="SSID"
+                            keyboardType='default'
+                            underlineColorAndroid='transparent'
+                            onChangeText={(s) => setssid(s)}
+                        />
+                    </View>
 
-                <TouchableOpacity onPress={toggleModal}
-                    style={{ width: "100%", alignItems: "center", marginVertical: 15 }}>
-                    <LinearGradient
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                        colors={['#4c669f', '#3b5998', '#192f6a']}
-                        style={{
-                            paddingLeft: 15,
-                            paddingRight: 15,
-                            paddingVertical: 10,
-                            borderRadius: 50,
-                            width: "50%",
-                        }}>
-                        <Text style={{
-                            fontSize: 20,
-                            fontFamily: 'Gill Sans',
-                            textAlign: 'center',
-                            color: '#ffffff',
-                            backgroundColor: 'transparent',
-                        }}>
-                            Connect</Text>
-                    </LinearGradient>
-                </TouchableOpacity>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon}
+                            source={{ uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db' }} />
+                        <TextInput style={styles.inputs}
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            underlineColorAndroid='transparent'
+                            onChangeText={(pass) => setPassword(pass)} />
+                    </View>
+
+                    <TouchableOpacity onPress={() => toggleModal()}
+                        style={{ width: "100%", alignItems: "center", marginVertical: 15 }}>
+                        <LinearGradient
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
+                            colors={['#4c669f', '#3b5998', '#192f6a']}
+                            style={{
+                                paddingLeft: 15,
+                                paddingRight: 15,
+                                paddingVertical: 10,
+                                borderRadius: 50,
+                                width: "50%",
+                            }}>
+                            <Text style={{
+                                fontSize: 20,
+                                fontFamily: 'Gill Sans',
+                                textAlign: 'center',
+                                color: '#ffffff',
+                                backgroundColor: 'transparent',
+                            }}>
+                                Connect</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
             </View>
 
-
-
-            <Modal isVisible={isModalVisible}>
+            <Modal isVisible={isModalVisible} style={{ flex: 1 }}>
                 <View style={styles.webView}>
                     <WebView
-                        source={{ uri: "http://192.168.4.1/" }}
+                        source={{ uri: "http://192.168.0.1/" }}
                         renderLoading={LoadingIndicatorView}
                         startInLoadingState={true}
                         ref={webviewRef}
@@ -113,7 +119,7 @@ const DetailsScreen = () => {
                       `}
                     // javaScriptEnabledAndroid={true}
                     />
-                    <TouchableOpacity onPress={toggleModal}
+                    {/* <TouchableOpacity onPress={() => { setisModalVisible(false) }}
                         style={{ position: "absolute", bottom: 50, right: 30 }}>
                         <LinearGradient
                             start={{ x: 0, y: 0 }}
@@ -123,7 +129,7 @@ const DetailsScreen = () => {
                             <Text style={styles.buttonText}>
                                 x</Text>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </Modal>
         </ React.Fragment>
@@ -194,7 +200,8 @@ const styles = StyleSheet.create({
         height: 45,
         marginVertical: 15,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        alignSelf: "center"
     },
     inputs: {
         height: 45,
@@ -224,7 +231,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     webView: {
-        height: "80%",
+        width: "2%",
+        height: "2%",
+        alignSelf: "center",
         backgroundColor: "#fff"
     }
 });
